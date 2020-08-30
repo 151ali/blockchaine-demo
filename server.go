@@ -38,19 +38,21 @@ func GetBlockchainHandler(w http.ResponseWriter, r *http.Request) {
 // AddBlockHandler :
 func AddBlockHandler(w http.ResponseWriter, r *http.Request) {
 
-	m := NewMessage()
-	json.NewDecoder(r.Body).Decode(&m)
-	if m.Message == "" {
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(Message{
-			Message: "Hmm ... Somthing went wrong :/",
-		})
-	} else {
+	t := Transaction{}
 
-		bc.AddBlock(m.Message)
+	json.NewDecoder(r.Body).Decode(&t)
+	if t.IsTransactionSet() {
 		w.Header().Set("Content-Type", "application/json")
+		bc.AddBlock(t)
 		json.NewEncoder(w).Encode(Message{
 			Message: "the block was added successfuly :)",
 		})
+	} else {
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(Message{
+			Message: "something went wrong  :( ... ",
+		})
 	}
+
 }

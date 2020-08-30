@@ -24,11 +24,11 @@ func (bc *Blockchain) GetLastBlock() *Block {
 
 // GenesisBlock :
 func GenesisBlock() *Block {
-	return NewBlock(1806, "Genesis-Block", "")
+	return NewBlock(1806, Transaction{"Genesis-Block", "", 10}, "")
 }
 
 // AddBlock :
-func (bc *Blockchain) AddBlock(data string) {
+func (bc *Blockchain) AddBlock(data Transaction) {
 
 	lastBlock := bc.GetLastBlock()
 	newBlock := NewBlock(1, data, lastBlock.GetHash())

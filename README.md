@@ -14,6 +14,6 @@ curl -X GET localhost:8080/chain
 add a block :
 ```bash
 curl -X POST -H "Content-Type: application/json" \
- -d '{"data":"I am another block :)"}' \
- localhost:8080/add
+-d '{"sender":"person1","receiver":"prson2","amount":2}'
+localhost:8080/add
 ```

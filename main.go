@@ -10,8 +10,8 @@ var (
 
 func main() {
 	// init
-	bc.AddBlock("Ali send 1 Coin to Nasro")
-	bc.AddBlock("Manel send 1 Coin to Ahmed")
+	bc.AddBlock(Transaction{"Ali", "Nasro", 1})
+	bc.AddBlock(Transaction{"Ahmed", "Manel", 3})
 
 	for _, b := range bc.Blocks {
 		b.ShowBlock()

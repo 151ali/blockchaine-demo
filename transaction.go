@@ -15,3 +15,8 @@ func NewTransaction(s, r string, a int) *Transaction {
 		Amount:   a,
 	}
 }
+
+// IsTransactionSet :
+func (t *Transaction) IsTransactionSet() bool {
+	return t.Amount != 0 && t.Sender != "" && t.Receiver != ""
+}

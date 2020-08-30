@@ -9,15 +9,16 @@ import (
 
 // Block :
 type Block struct {
+	Data Transaction `json:"data"`
+
 	Proof     int    `json:"proof"`
 	Timestamp int64  `json:"timestamp"`
-	Data      string `json:"data"`
 	PrevHash  string `json:"prevHash"`
 	Hash      string `json:"hash"`
 }
 
 // NewBlock :
-func NewBlock(p int, data string, prevBlockHash string) *Block {
+func NewBlock(p int, data Transaction, prevBlockHash string) *Block {
 	block := &Block{
 		Proof:     p,
 		Timestamp: time.Now().Unix(),
@@ -33,7 +34,7 @@ func NewBlock(p int, data string, prevBlockHash string) *Block {
 // SetHash :
 func (b *Block) SetHash() {
 	timestamp := []byte(strconv.FormatInt(b.Timestamp, 10))
-	v := string(timestamp) + b.PrevHash + b.Data
+	v := string(timestamp) + b.PrevHash + b.Data.Receiver + b.Data.Sender + string(b.Data.Amount)
 
 	hash := sha256.Sum256([]byte(v))
 	b.Hash = fmt.Sprintf("%x", hash[:])
@@ -55,7 +56,7 @@ func (b *Block) GetPrevHash() string {
 }
 
 // GetData :
-func (b *Block) GetData() string {
+func (b *Block) GetData() Transaction {
 	return b.Data
 }
 
